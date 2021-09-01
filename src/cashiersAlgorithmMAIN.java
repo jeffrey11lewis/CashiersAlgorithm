@@ -31,15 +31,18 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 	JPanel amountPanel;
 	JPanel duePanel;
 	JPanel denominations;
+	JPanel twenties;
 	JTextField enterCharged;
 	JTextField enterPaid;
 	JTextField changeDue;
+	JTextField displayTwenties;
 	JButton calculate;
 	
 	JLabel amountCharged;
 	JLabel amountReceived;
 	JLabel changeDuetoCustomer;
 	JLabel displayDenominations[];
+	
 	
 	cashiersAlgorithmMAIN(){
 		
@@ -114,6 +117,14 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		enterPaid.setBackground(Color.white);
 		enterPaid.addActionListener(this);
 		
+		displayTwenties = new JTextField();
+		displayTwenties.setBounds(200,200,200,200);
+		displayTwenties.setEditable(false);
+		displayTwenties.setBackground(Color.cyan);
+		displayTwenties.addActionListener(this);
+		displayTwenties.setText(twentyCount);
+		
+		
 		changeDue = new JTextField();
 		changeDue.setBounds(150, 185, 200, 30);
 		changeDue.setEditable(false);
@@ -138,6 +149,7 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		frame.add(changeDue);
 		frame.add(calculate);
 		frame.add(duePanel);
+		frame.add(displayTwenties);
 		
 		//amountPanel.setBackground(Color.cyan);
 		//transactionPanel.setBackground(Color.CYAN);
@@ -168,10 +180,13 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == calculate) {
+				double twentyCount = 0;
 				double paid = Double.parseDouble(enterPaid.getText());
 				double charged = Double.parseDouble(enterCharged.getText());
 				DecimalFormat df = new DecimalFormat("#,###.##");
 				double whatToPay =  (paid - charged);
+				
+				twenties =	Double.parseDouble(twentyCount.getText());
 				
 				changeDue.setText(String.valueOf(df.format(whatToPay)));
 				System.out.println("paid: " + paid);
@@ -180,18 +195,25 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			}
 			
 		}
-		/*
-		void denominationReturn(double whatToPay){
-			if (whatToPay - 20 > 0) {
-				twenties + 1;
-				
+		
+		double denominationReturn(double whatToPay, double twentyCount){
+			double newAmount;
+			double oldAmount = newAmount;
+			while (whatToPay - 20 > 0) {
+				double newAmount = whatToPay;
+				newAmount = whatToPay - 20;
+				newAmount = oldAmount;
+				twentyCount++;
+			
 			}
-			else {
-				System.out.println("NOT greater.");
-			}
+			return twentyCount;
+			
+			
+			
+			
 			
 		}
-		*/
+		
 
 }
 
