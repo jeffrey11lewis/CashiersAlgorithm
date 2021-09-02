@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -31,12 +32,30 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 	JPanel amountPanel;
 	JPanel duePanel;
 	JPanel denominations;
+	
 	JPanel twenties;
+	JPanel tens;
+	JPanel fives;
+	JPanel ones;
+	JPanel quarters;
+	JPanel dimes;
+	JPanel nickels;
+	JPanel pennies;
+	
+	
 	JTextField enterCharged;
 	JTextField enterPaid;
 	JTextField changeDue;
-	JTextField displayTwenties;
 	JButton calculate;
+	JTextField displayTwenties;
+	JTextField displayTens;
+	JTextField displayFives;
+	JTextField displayOnes;
+	JTextField displayQuarters;
+	JTextField displayDimes;
+	JTextField displayNickels;
+	JTextField displayPennies;
+	
 	
 	JLabel amountCharged;
 	JLabel amountReceived;
@@ -118,11 +137,56 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		enterPaid.addActionListener(this);
 		
 		displayTwenties = new JTextField();
-		displayTwenties.setBounds(200,200,200,200);
+		displayTwenties.setBounds(60,250,100,50);
 		displayTwenties.setEditable(false);
-		displayTwenties.setBackground(Color.cyan);
+		displayTwenties.setBackground(Color.LIGHT_GRAY);
 		displayTwenties.addActionListener(this);
-		displayTwenties.setText(twentyCount);
+		//displayTwenties.setText(twentyCount);
+		
+		displayTens = new JTextField();
+		displayTens.setBounds(200,250,100,50);
+		displayTens.setEditable(false);
+		displayTens.setBackground(Color.LIGHT_GRAY);
+		displayTens.addActionListener(this);
+		
+		displayFives = new JTextField();
+		displayFives.setBounds(340, 250,100,50);
+		displayFives.setEditable(false);
+		displayFives.setBackground(Color.LIGHT_GRAY);
+		
+		displayOnes = new JTextField();
+		displayOnes.setBounds(480, 250,100,50);
+		displayOnes.setEditable(false);
+		displayOnes.setBackground(Color.LIGHT_GRAY);
+		displayOnes.addActionListener(this);
+		
+		
+		
+		displayQuarters = new JTextField();
+		displayQuarters.setBounds(60, 350, 100, 50);
+		displayQuarters.setEditable(false);
+		displayQuarters.setBackground(Color.LIGHT_GRAY);
+		displayQuarters.addActionListener(this);
+		
+		displayDimes = new JTextField();
+		displayDimes.setBounds(200,350,100,50);
+		displayDimes.setEditable(false);
+		displayDimes.setBackground(Color.LIGHT_GRAY);
+		displayDimes.addActionListener(this);
+		
+		displayNickels = new JTextField();
+		displayNickels.setBounds(340, 350, 100, 50);
+		displayNickels.setEditable(false);
+		displayNickels.setBackground(Color.LIGHT_GRAY);
+		displayNickels.addActionListener(this);
+		
+		displayPennies = new JTextField();
+		displayPennies.setBounds(480, 350, 100, 50);
+		displayPennies.setEditable(false);
+		displayPennies.setBackground(Color.LIGHT_GRAY);
+		displayPennies.addActionListener(this);
+		
+		
 		
 		
 		changeDue = new JTextField();
@@ -150,6 +214,17 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		frame.add(calculate);
 		frame.add(duePanel);
 		frame.add(displayTwenties);
+		frame.add(displayTens);
+		frame.add(displayFives);
+		frame.add(displayOnes);
+		frame.add(displayQuarters);
+		frame.add(displayDimes);
+		frame.add(displayNickels);
+		frame.add(displayPennies);
+		
+		
+		
+		
 		
 		//amountPanel.setBackground(Color.cyan);
 		//transactionPanel.setBackground(Color.CYAN);
@@ -180,41 +255,160 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == calculate) {
-				double twentyCount = 0;
+
 				double paid = Double.parseDouble(enterPaid.getText());
 				double charged = Double.parseDouble(enterCharged.getText());
 				DecimalFormat df = new DecimalFormat("#,###.##");
-				double whatToPay =  (paid - charged);
+				double whatToPay = whatToPay(paid, charged);
+				double twentyCount = denominationReturn(whatToPay);
+				double tensCount = tensReturn(whatToPay, twentyCount);
+				double fivesCount = fivesReturn(whatToPay, tensCount, twentyCount);
+				double onesCount = onesReturn(whatToPay, twentyCount, tensCount, fivesCount);
+				double quartersCount = quartersReturn(whatToPay, twentyCount, tensCount, fivesCount, onesCount);
+				double dimesCount = dimesReturn(whatToPay, twentyCount, tensCount, fivesCount, onesCount, quartersCount);
+				double nickelsCount = nickelsReturn(whatToPay, twentyCount, tensCount, fivesCount, onesCount, quartersCount, dimesCount);
+				double penniesCount = penniesReturn(whatToPay, twentyCount, tensCount, fivesCount, onesCount, quartersCount, dimesCount, nickelsCount);
 				
-				twenties =	Double.parseDouble(twentyCount.getText());
+				displayTwenties.setText("Twenties: " + String.valueOf(twentyCount));
+				displayTens.setText("Tens: " + String.valueOf(tensCount));
+				displayFives.setText("Fives: " + String.valueOf(fivesCount));
+				displayOnes.setText("Ones: " + String.valueOf(onesCount));
+				displayQuarters.setText("Quarters: " + String.valueOf(quartersCount));
+				displayDimes.setText("Dimes: " + String.valueOf(dimesCount));
+				displayNickels.setText("Nickels: " + String.valueOf(nickelsCount));
+				displayPennies.setText("Pennies: " + String.valueOf(penniesCount));
+				
+				
+				//twenties =	Double.parseDouble(twentyCount.getText());
 				
 				changeDue.setText(String.valueOf(df.format(whatToPay)));
 				System.out.println("paid: " + paid);
 				System.out.println("charged: " + charged);
+				System.out.println("Unformatted:" +whatToPay);
 				System.out.println(String.format("%,.2f", whatToPay));
+				
 			}
 			
 		}
 		
-		double denominationReturn(double whatToPay, double twentyCount){
-			double newAmount;
-			double oldAmount = newAmount;
-			while (whatToPay - 20 > 0) {
-				double newAmount = whatToPay;
-				newAmount = whatToPay - 20;
-				newAmount = oldAmount;
+
+
+
+
+
+
+		public double whatToPay(double paid, double charged) {
+			
+			double whatToPay =  (paid - charged);
+
+			return whatToPay;
+			
+			
+		}
+		
+		double denominationReturn( double whatToPay){
+			double twentyCount = 0;
+			double oldAmount = whatToPay;
+			while (oldAmount - 20 > 0) {
+				oldAmount = oldAmount - 20;
+			 
 				twentyCount++;
-			
 			}
-			return twentyCount;
-			
-			
-			
-			
+			return twentyCount;	
 			
 		}
 		
+		double tensReturn(double whatToPay, double twentyCount) {
+			double tensCount = 0;
+			double oldAmount = whatToPay -(twentyCount * 20);
+			while (oldAmount - 10 > 0) {
+				oldAmount = oldAmount - 10;
+			 
+				
+				tensCount++;
+			
+			}
+			return tensCount;
+			
+		}
+		
+		double fivesReturn(double whatToPay, double tensCount, double twentyCount) {
+			double fivesCount = 0;
+			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10);
+			while (oldAmount - 5 > 0) {
+				oldAmount = oldAmount - 5;
+			 
+				
+				fivesCount++;
+			}
+			return fivesCount;
+		
+		}
+		double onesReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount) {
+			double onesCount = 0;
+			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5);
+			while (oldAmount - 1 > 0) {
+				oldAmount = oldAmount - 1;
+				
+				onesCount++;
+			}
+			
+			return onesCount;
+			
+		}
+		double quartersReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount, double onesCount) {
+			double quartersCount = 0;
+			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5) - (onesCount * 1);
+			while(oldAmount - 0.25 > 0) {
+				oldAmount = oldAmount - 0.25;
+				
+				quartersCount++;
+			}
+			
+			return quartersCount;
+		}
+		double dimesReturn (double whatToPay, double twentyCount, double tensCount, double fivesCount, double onesCount, double quartersCount) {
+			double dimesCount = 0;
+			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25);
+			while (oldAmount - 0.1 > 0) {
+				oldAmount = oldAmount - 0.1;
+				
+				dimesCount++;
+			}
+			
+			return dimesCount;
+			
+		}
+		double nickelsReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount, 
+		double onesCount, double quartersCount, double dimesCount) {
+			double nickelsCount = 0;
+			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25) - (dimesCount * 0.1);
+			while (oldAmount - 0.05 > 0) {
+				oldAmount = oldAmount - 0.05;
+				
+				nickelsCount++;
+			}
+			return nickelsCount;
+			
+		}
+		double penniesReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount,
+				double onesCount, double quartersCount, double dimesCount, double nickelsCount) {
+			double penniesCount = 0;
+			
+			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - 
+				(fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25) - (dimesCount * 0.1) - (nickelsCount * 0.05);
+			
+			while (oldAmount - 0.01 > 0) {
+				oldAmount = oldAmount - 0.01;
+				
+				penniesCount++;
+				
+			}
+			
+			
+			
+			return penniesCount;
+		}
 
 }
-
 
