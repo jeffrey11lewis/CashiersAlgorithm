@@ -282,9 +282,10 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				//twenties =	Double.parseDouble(twentyCount.getText());
 				
 				changeDue.setText(String.valueOf(df.format(whatToPay)));
+				
 				System.out.println("paid: " + paid);
 				System.out.println("charged: " + charged);
-				System.out.println("Unformatted:" +whatToPay);
+				System.out.println("Unformatted:" + whatToPay);
 				System.out.println(String.format("%,.2f", whatToPay));
 				
 			}
@@ -299,7 +300,15 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 
 		public double whatToPay(double paid, double charged) {
 			
+			DecimalFormat df = new DecimalFormat("#,###.##");
+			
 			double whatToPay =  (paid - charged);
+			
+			String str = Double.toString(whatToPay);
+			
+			str = df.format(whatToPay);
+			
+			whatToPay = Double.parseDouble(str);
 
 			return whatToPay;
 			
@@ -320,7 +329,7 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		
 		double tensReturn(double whatToPay, double twentyCount) {
 			double tensCount = 0;
-			double oldAmount = whatToPay -(twentyCount * 20);
+			double oldAmount = whatToPay - (twentyCount * 20);
 			while (oldAmount - 10 > 0) {
 				oldAmount = oldAmount - 10;
 			 
@@ -393,12 +402,16 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		}
 		double penniesReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount,
 				double onesCount, double quartersCount, double dimesCount, double nickelsCount) {
+			
+			
 			double penniesCount = 0;
 			
 			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - 
 				(fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25) - (dimesCount * 0.1) - (nickelsCount * 0.05);
+		
 			
 			while (oldAmount - 0.01 > 0) {
+				
 				oldAmount = oldAmount - 0.01;
 				
 				penniesCount++;
