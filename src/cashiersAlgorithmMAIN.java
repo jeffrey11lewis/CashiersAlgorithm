@@ -1,12 +1,9 @@
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.Random;
-import java.util.Scanner;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -318,7 +315,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		double denominationReturn( double whatToPay){
 			double twentyCount = 0;
 			double oldAmount = whatToPay;
-			while (oldAmount - 20 > 0) {
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
+			
+			while (oldAmount - 20 >= 0) {
 				oldAmount = oldAmount - 20;
 			 
 				twentyCount++;
@@ -330,7 +329,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		double tensReturn(double whatToPay, double twentyCount) {
 			double tensCount = 0;
 			double oldAmount = whatToPay - (twentyCount * 20);
-			while (oldAmount - 10 > 0) {
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
+			
+			while (oldAmount - 10 >= 0) {
 				oldAmount = oldAmount - 10;
 			 
 				
@@ -344,7 +345,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		double fivesReturn(double whatToPay, double tensCount, double twentyCount) {
 			double fivesCount = 0;
 			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10);
-			while (oldAmount - 5 > 0) {
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
+			
+			while (oldAmount - 5 >= 0) {
 				oldAmount = oldAmount - 5;
 			 
 				
@@ -356,7 +359,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		double onesReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount) {
 			double onesCount = 0;
 			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5);
-			while (oldAmount - 1 > 0) {
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
+			
+			while (oldAmount - 1 >= 0) {
 				oldAmount = oldAmount - 1;
 				
 				onesCount++;
@@ -368,7 +373,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		double quartersReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount, double onesCount) {
 			double quartersCount = 0;
 			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5) - (onesCount * 1);
-			while(oldAmount - 0.25 > 0) {
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
+			
+			while(oldAmount - 0.25 >= 0) {
 				oldAmount = oldAmount - 0.25;
 				
 				quartersCount++;
@@ -379,7 +386,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		double dimesReturn (double whatToPay, double twentyCount, double tensCount, double fivesCount, double onesCount, double quartersCount) {
 			double dimesCount = 0;
 			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25);
-			while (oldAmount - 0.1 > 0) {
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
+			
+			while (oldAmount - 0.1 >= 0) {
 				oldAmount = oldAmount - 0.1;
 				
 				dimesCount++;
@@ -391,8 +400,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		double nickelsReturn(double whatToPay, double twentyCount, double tensCount, double fivesCount, 
 		double onesCount, double quartersCount, double dimesCount) {
 			double nickelsCount = 0;
-			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - (fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25) - (dimesCount * 0.1);
-			while (oldAmount - 0.05 > 0) {
+			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - 
+			(fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25) - (dimesCount * 0.1);
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
+			
+			while (oldAmount - 0.05 >= 0) {
 				oldAmount = oldAmount - 0.05;
 				
 				nickelsCount++;
@@ -408,9 +420,10 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			
 			double oldAmount = whatToPay - (twentyCount * 20) - (tensCount * 10) - 
 				(fivesCount * 5) - (onesCount * 1) - (quartersCount * 0.25) - (dimesCount * 0.1) - (nickelsCount * 0.05);
-		
+			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
-			while (oldAmount - 0.01 > 0) {
+			
+			while (oldAmount - 0.01 >= 0) {
 				
 				oldAmount = oldAmount - 0.01;
 				
@@ -422,6 +435,7 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			
 			return penniesCount;
 		}
+		
 
 }
 
