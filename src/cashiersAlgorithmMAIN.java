@@ -275,9 +275,6 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				displayNickels.setText("Nickels: " + String.valueOf(nickelsCount));
 				displayPennies.setText("Pennies: " + String.valueOf(penniesCount));
 				
-				
-				//twenties =	Double.parseDouble(twentyCount.getText());
-				
 				changeDue.setText(String.valueOf(df.format(whatToPay)));
 				
 				System.out.println("paid: " + paid);
