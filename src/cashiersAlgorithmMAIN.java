@@ -1,10 +1,11 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,13 +17,15 @@ import javax.swing.JTextField;
  * TO DO:
  * implement KeyListener. enter key makes things do stuff
  * 
- * implement denomination counter.
+ * 
  */
 
 //C:\Users\torch\eclipse-workspace\CashiersAlgorithm\src
 public class cashiersAlgorithmMAIN implements ActionListener{
 	ImageIcon iconImage = new ImageIcon ("C:\\Users\\torch\\eclipse-workspace\\CashiersAlgorithm\\src\\calculatorAlgorithm.png");
-
+	Font myFont = new Font("Bahnschrift SemiBold", Font.BOLD,13);
+	
+	
 	
 	JFrame frame;
 	JPanel transactionPanel;
@@ -92,7 +95,7 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 	
 		frame = new JFrame("CashierView");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(750,500);
+		frame.setSize(660,500);
 		frame.setLayout(null);
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -275,13 +278,36 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				displayNickels.setText("Nickels: " + String.valueOf(nickelsCount));
 				displayPennies.setText("Pennies: " + String.valueOf(penniesCount));
 				
-				changeDue.setText(String.valueOf(df.format(whatToPay)));
+				displayTwenties.setFont(myFont);
+				displayTens.setFont(myFont);
+				displayFives.setFont(myFont);
+				displayOnes.setFont(myFont);
+				displayQuarters.setFont(myFont);
+				displayDimes.setFont(myFont);
+				displayNickels.setFont(myFont);
+				displayPennies.setFont(myFont);
 				
+				displayTwenties.setHorizontalAlignment(JTextField.CENTER);
+				displayTens.setHorizontalAlignment(JTextField.CENTER);
+				displayFives.setHorizontalAlignment(JTextField.CENTER);
+				displayOnes.setHorizontalAlignment(JTextField.CENTER);
+				displayQuarters.setHorizontalAlignment(JTextField.CENTER);
+				displayDimes.setHorizontalAlignment(JTextField.CENTER);
+				displayNickels.setHorizontalAlignment(JTextField.CENTER);
+				displayPennies.setHorizontalAlignment(JTextField.CENTER);
+				
+				if (whatToPay < 0) {
+					changeDue.setText(String.valueOf(df.format(whatToPay) + " INVALID"));
+				}
+				else {
+				changeDue.setText(String.valueOf(df.format(whatToPay)));
+				}
+				/*
 				System.out.println("paid: " + paid);
 				System.out.println("charged: " + charged);
 				System.out.println("Unformatted:" + whatToPay);
 				System.out.println(String.format("%,.2f", whatToPay));
-				
+				*/
 			}
 			
 		}
@@ -294,15 +320,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 
 		public double whatToPay(double paid, double charged) {
 			
-			DecimalFormat df = new DecimalFormat("#,###.##");
 			
 			double whatToPay =  (paid - charged);
 			
-			String str = Double.toString(whatToPay);
-			
-			str = df.format(whatToPay);
-			
-			whatToPay = Double.parseDouble(str);
 
 			return whatToPay;
 			
