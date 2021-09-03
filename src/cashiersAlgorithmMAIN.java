@@ -318,9 +318,16 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
 			while (oldAmount - 20 >= 0) {
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 20;
 			 
 				twentyCount++;
+			}
+			if (twentyCount > 0) {
+				displayTwenties.setBackground(Color.green);
+			}
+			else {
+				displayTwenties.setBackground(Color.red);
 			}
 			return twentyCount;	
 			
@@ -332,11 +339,18 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
 			while (oldAmount - 10 >= 0) {
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 10;
 			 
 				
 				tensCount++;
 			
+			}
+			if (tensCount > 0) {
+				displayTens.setBackground(Color.green);
+			}
+			else {
+				displayTens.setBackground(Color.red);
 			}
 			return tensCount;
 			
@@ -348,10 +362,17 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
 			while (oldAmount - 5 >= 0) {
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 5;
 			 
 				
 				fivesCount++;
+			}
+			if (fivesCount > 0) {
+				displayFives.setBackground(Color.green);
+			}
+			else {
+				displayFives.setBackground(Color.red);
 			}
 			return fivesCount;
 		
@@ -362,9 +383,17 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
 			while (oldAmount - 1 >= 0) {
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 1;
 				
 				onesCount++;
+			}
+			
+			if (onesCount > 0) {
+				displayOnes.setBackground(Color.green);
+			}
+			else {
+				displayOnes.setBackground(Color.red);
 			}
 			
 			return onesCount;
@@ -376,9 +405,17 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
 			while(oldAmount - 0.25 >= 0) {
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 0.25;
 				
 				quartersCount++;
+			}
+			
+			if (quartersCount > 0) {
+				displayQuarters.setBackground(Color.green);
+			}
+			else {
+				displayQuarters.setBackground(Color.red);
 			}
 			
 			return quartersCount;
@@ -389,9 +426,16 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
 			while (oldAmount - 0.1 >= 0) {
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 0.1;
 				
 				dimesCount++;
+			}
+			if (dimesCount > 0) {
+				displayDimes.setBackground(Color.green);
+			}
+			else {
+				displayDimes.setBackground(Color.red);
 			}
 			
 			return dimesCount;
@@ -405,9 +449,16 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 			
 			while (oldAmount - 0.05 >= 0) {
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 0.05;
 				
 				nickelsCount++;
+			}
+			if (nickelsCount > 0) {
+				displayNickels.setBackground(Color.green);
+			}
+			else {
+				displayNickels.setBackground(Color.red);
 			}
 			return nickelsCount;
 			
@@ -425,10 +476,20 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			
 			while (oldAmount - 0.01 >= 0) {
 				
+				oldAmount = (Math.round(oldAmount * 100.0) / 100.0);
 				oldAmount = oldAmount - 0.01;
+				
 				
 				penniesCount++;
 				
+				
+			}
+			
+			if (penniesCount > 0) {
+				displayPennies.setBackground(Color.green);
+			}
+			else {
+				displayPennies.setBackground(Color.red);
 			}
 			
 			
