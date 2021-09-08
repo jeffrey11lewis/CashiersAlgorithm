@@ -1,8 +1,11 @@
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 
 import javax.swing.BorderFactory;
@@ -24,7 +27,7 @@ import javax.swing.JTextField;
 public class cashiersAlgorithmMAIN implements ActionListener{
 	ImageIcon iconImage = new ImageIcon ("C:\\Users\\torch\\eclipse-workspace\\CashiersAlgorithm\\src\\calculatorAlgorithm.png");
 	Font myFont = new Font("Bahnschrift SemiBold", Font.BOLD,13);
-	
+	ImageIcon background = new ImageIcon ("C:\\Users\\torch\\eclipse-workspace\\CashiersAlgorithm\\src\\CASHIERSALGORITHM (10).PNG");
 	
 	
 	JFrame frame;
@@ -60,6 +63,7 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 	JLabel amountCharged;
 	JLabel amountReceived;
 	JLabel changeDuetoCustomer;
+	JLabel backgroundImage;
 	JLabel displayDenominations[];
 	
 	
@@ -92,7 +96,9 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 	 */
 	
 	
-	
+		backgroundImage = new JLabel(background);
+		backgroundImage.setSize(660,500);
+		
 		frame = new JFrame("CashierView");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(660,500);
@@ -108,18 +114,23 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		transactionPanel.setBackground(Color.LIGHT_GRAY);
 		amountCharged = new JLabel("Transaction Total:");
 		transactionPanel.add(amountCharged);
+		transactionPanel.setOpaque(false);
+	
 		
 		amountPanel = new JPanel();
 		amountPanel.setBounds(-40, 145, 200, 40);
 		amountPanel.setBackground(Color.LIGHT_GRAY);
 		amountReceived = new JLabel("Amount Received:");
 		amountPanel.add(amountReceived);
+		amountPanel.setOpaque(false);
+		
 		
 		duePanel = new JPanel();
 		duePanel.setBounds(-40, 185, 200, 40);
 		duePanel.setBackground(Color.LIGHT_GRAY);
 		changeDuetoCustomer = new JLabel("Change Due:");
 		duePanel.add(changeDuetoCustomer);
+		duePanel.setOpaque(false);
 		
 		
 		
@@ -139,25 +150,27 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		displayTwenties = new JTextField();
 		displayTwenties.setBounds(60,250,100,50);
 		displayTwenties.setEditable(false);
-		displayTwenties.setBackground(Color.LIGHT_GRAY);
+		//displayTwenties.setBackground(Color.LIGHT_GRAY);
 		displayTwenties.addActionListener(this);
+		displayTwenties.setOpaque(false);
 		//displayTwenties.setText(twentyCount);
 		
 		displayTens = new JTextField();
 		displayTens.setBounds(200,250,100,50);
 		displayTens.setEditable(false);
-		displayTens.setBackground(Color.LIGHT_GRAY);
+		displayTens.setOpaque(false);
+		//displayTens.setBackground(Color.LIGHT_GRAY);
 		displayTens.addActionListener(this);
 		
 		displayFives = new JTextField();
 		displayFives.setBounds(340, 250,100,50);
 		displayFives.setEditable(false);
-		displayFives.setBackground(Color.LIGHT_GRAY);
+		displayFives.setOpaque(false);
 		
 		displayOnes = new JTextField();
 		displayOnes.setBounds(480, 250,100,50);
 		displayOnes.setEditable(false);
-		displayOnes.setBackground(Color.LIGHT_GRAY);
+		displayOnes.setOpaque(false);
 		displayOnes.addActionListener(this);
 		
 		
@@ -165,25 +178,25 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		displayQuarters = new JTextField();
 		displayQuarters.setBounds(60, 350, 100, 50);
 		displayQuarters.setEditable(false);
-		displayQuarters.setBackground(Color.LIGHT_GRAY);
+		displayQuarters.setOpaque(false);
 		displayQuarters.addActionListener(this);
 		
 		displayDimes = new JTextField();
 		displayDimes.setBounds(200,350,100,50);
 		displayDimes.setEditable(false);
-		displayDimes.setBackground(Color.LIGHT_GRAY);
+		displayDimes.setOpaque(false);
 		displayDimes.addActionListener(this);
 		
 		displayNickels = new JTextField();
 		displayNickels.setBounds(340, 350, 100, 50);
 		displayNickels.setEditable(false);
-		displayNickels.setBackground(Color.LIGHT_GRAY);
+		displayNickels.setOpaque(false);
 		displayNickels.addActionListener(this);
 		
 		displayPennies = new JTextField();
 		displayPennies.setBounds(480, 350, 100, 50);
 		displayPennies.setEditable(false);
-		displayPennies.setBackground(Color.LIGHT_GRAY);
+		displayPennies.setOpaque(false);
 		displayPennies.addActionListener(this);
 		
 		
@@ -205,6 +218,7 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		
 		
 		
+		
 		frame.setVisible(true);
 		frame.add(transactionPanel);
 		frame.add(amountPanel);
@@ -221,6 +235,7 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 		frame.add(displayDimes);
 		frame.add(displayNickels);
 		frame.add(displayPennies);
+		frame.add(backgroundImage);
 		
 		
 		
@@ -302,6 +317,15 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				else {
 				changeDue.setText(String.valueOf(df.format(whatToPay)));
 				}
+				
+				if (enterPaid.getText() == " ") {
+					System.out.println("please enter PAID");
+				}
+				
+				if (enterCharged.getText() == " ") {
+					System.out.println("please enter CHARGED");
+				}
+					
 				/*
 				System.out.println("paid: " + paid);
 				System.out.println("charged: " + charged);
@@ -341,9 +365,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				twentyCount++;
 			}
 			if (twentyCount > 0) {
+				displayTwenties.setOpaque(true);
 				displayTwenties.setBackground(Color.green);
 			}
 			else {
+				displayTwenties.setOpaque(true);
 				displayTwenties.setBackground(Color.red);
 			}
 			return twentyCount;	
@@ -364,9 +390,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			
 			}
 			if (tensCount > 0) {
+				displayTens.setOpaque(true);
 				displayTens.setBackground(Color.green);
 			}
 			else {
+				displayTens.setOpaque(true);
 				displayTens.setBackground(Color.red);
 			}
 			return tensCount;
@@ -386,9 +414,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				fivesCount++;
 			}
 			if (fivesCount > 0) {
+				displayFives.setOpaque(true);
 				displayFives.setBackground(Color.green);
 			}
 			else {
+				displayFives.setOpaque(true);
 				displayFives.setBackground(Color.red);
 			}
 			return fivesCount;
@@ -407,9 +437,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			}
 			
 			if (onesCount > 0) {
+				displayOnes.setOpaque(true);
 				displayOnes.setBackground(Color.green);
 			}
 			else {
+				displayOnes.setOpaque(true);
 				displayOnes.setBackground(Color.red);
 			}
 			
@@ -429,9 +461,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			}
 			
 			if (quartersCount > 0) {
+				displayQuarters.setOpaque(true);
 				displayQuarters.setBackground(Color.green);
 			}
 			else {
+				displayQuarters.setOpaque(true);
 				displayQuarters.setBackground(Color.red);
 			}
 			
@@ -449,9 +483,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				dimesCount++;
 			}
 			if (dimesCount > 0) {
+				displayDimes.setOpaque(true);
 				displayDimes.setBackground(Color.green);
 			}
 			else {
+				displayDimes.setOpaque(true);
 				displayDimes.setBackground(Color.red);
 			}
 			
@@ -472,9 +508,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 				nickelsCount++;
 			}
 			if (nickelsCount > 0) {
+				displayNickels.setOpaque(true);
 				displayNickels.setBackground(Color.green);
 			}
 			else {
+				displayNickels.setOpaque(true);
 				displayNickels.setBackground(Color.red);
 			}
 			return nickelsCount;
@@ -503,9 +541,11 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			}
 			
 			if (penniesCount > 0) {
+				displayPennies.setOpaque(true);
 				displayPennies.setBackground(Color.green);
 			}
 			else {
+				displayPennies.setOpaque(true);
 				displayPennies.setBackground(Color.red);
 			}
 			
@@ -513,6 +553,22 @@ public class cashiersAlgorithmMAIN implements ActionListener{
 			
 			return penniesCount;
 		}
+
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
 		
 
 }
